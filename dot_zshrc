@@ -1,0 +1,64 @@
+#### Local bin env
+export PATH=$PATH:/home/dom1nux/.local/bin
+
+#### Zinit ####
+[[ -f ~/.config/zsh/zinit.zsh ]] && source ~/.config/zsh/zinit.zsh
+
+#### Check if /etc/hostname file exists ####
+if [[ -f /etc/hostname ]]; then
+
+    #### Set hostname to an env variable ####
+    HOSTNAME=$(cat /etc/hostname)
+
+    #### Load config by hostname ####
+    case "$HOSTNAME" in
+        Mizuki)
+            [[ -f ~/.config/zsh/env/mizuki.zsh ]] && source ~/.config/zsh/env/mizuki.zsh
+            [[ -f ~/.config/zsh/aliases/desktop.zsh ]] && source ~/.config/zsh/aliases/desktop.zsh
+            ;;
+        Mizuho)
+            [[ -f ~/.config/zsh/env/mizuho.zsh ]] && source ~/.config/zsh/env/mizuho.zsh
+            [[ -f ~/.config/zsh/aliases/mizuho.zsh ]] && source ~/.config/zsh/aliases/mizuho.zsh
+            [[ -f ~/.config/zsh/aliases/desktop.zsh ]] && source ~/.config/zsh/aliases/desktop.zsh
+            ;;
+        zero)
+            [[ -f ~/.config/zsh/aliases/server.zsh ]] && source ~/.config/zsh/aliases/server.zsh
+            ;;
+        *)
+            echo "There's no config for $HOSTNAME"
+            ;;
+    esac
+
+else
+    echo "Unable to detect hostname. Does /etc/hostname exists?"
+fi
+
+# Keybindings
+bindkey -e
+bindkey '^p' history-search-backward
+bindkey '^n' history-search-forward
+bindkey '^[w' kill-region
+
+# History
+HISTSIZE=5000
+HISTFILE=~/.zsh_history
+SAVEHIST=$HISTSIZE
+HISTDUP=erase
+setopt appendhistory sharehistory hist_ignore_space hist_ignore_all_dups hist_save_no_dups hist_ignore_dups hist_find_no_dups
+
+# Shell integrations
+eval "$(fzf --zsh)"
+eval "$(zoxide init --cmd cd zsh)"
+
+case "$HOSTNAME" in
+    Mizuki|Mizuho)
+        eval "$(oh-my-posh init zsh --config '~/.config/oh-my-posh/myThemePowerlineMode.toml')"
+        ;;
+    zero)
+        eval "$(oh-my-posh init zsh --config '~/.config/oh-my-posh/myThemeSimpleMode.toml')"
+        ;;
+    *)
+        echo "There's no config for $HOSTNAME, falling back to simple theme"
+        eval "$(oh-my-posh init zsh --config '~/.config/oh-my-posh/myThemeSimpleMode.toml')"
+        ;;
+esac
