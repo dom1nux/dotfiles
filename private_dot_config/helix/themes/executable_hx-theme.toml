@@ -1,0 +1,8 @@
+#inherits = "tokyonight"
+#inherits = "rose_pine"
+inherits = "github_dark"
+
+"ui.background" = { fg = "fg"}
+"ui.text" = { fg = "fg" }
+"ui.linenr" = { fg = "light-gray" }
+"ui.linenr.selected" = { fg = "white",  modifiers = ["bold"] }
