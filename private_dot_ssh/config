@@ -1,0 +1,15 @@
+Host zero
+    HostName zero.aardwolf-bellatrix.ts.net
+    User dom1nux
+    Port 22
+    IdentityFile ~/.ssh/id_zero
+    
+Host github.com
+    HostName github.com
+    Port 22
+    IdentityFile ~/.ssh/id_github
+
+Host gitea.dom1nux.duckdns.org
+    HostName gitea.dom1nux.duckdns.org
+    Port 22
+    IdentityFile ~/.ssh/id_gitea
