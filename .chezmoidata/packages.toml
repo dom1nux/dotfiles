@@ -1,0 +1,53 @@
+# Package definitions for Arch Linux
+[arch]
+# Native packages (pacman)
+pacman = [
+    # Development tools
+    "git",
+    "base-devel",    # Meta package for development tools
+    
+    # Editors
+    "vim",           # System editor
+    "helix",         # Modern terminal editor
+    
+    # Modern CLI tools
+    "bat",           # Better cat
+    "eza",           # Modern ls replacement
+    "zoxide",        # Smarter cd command
+    "ripgrep",       # Fast search tool
+    "fzf",           # Fuzzy finder
+    "lazygit",       # Terminal UI for git
+    
+    # System utilities
+    "btop",          # Modern resource monitor
+    "tlp",           # Power management
+    "tlp-rdw",       # Radio device wizard for TLP
+    "fastfetch",     # System information tool
+    "ghostty",       # Modern terminal emulator
+    
+    # Container and orchestration
+    "kubectl",       # Kubernetes CLI
+    "minikube",      # Local Kubernetes
+    "docker-buildx", # Docker build tool
+    "docker-compose",# Container orchestration
+    
+    # Security
+    "keepassxc",     # Password manager
+    
+    # Creative tools
+    "blender",       # 3D creation suite
+    "freecad"        # Parametric 3D CAD
+]
+
+# AUR packages (yay)
+aur = [
+    # Browsers
+    "brave-bin",                 # Privacy-focused browser
+    
+    # Development
+    "visual-studio-code-bin",    # Code editor
+    "docker-rootless-extras"     # Rootless Docker support
+]
+
+# Default AUR helper configuration
+aur_helper = "yay"
