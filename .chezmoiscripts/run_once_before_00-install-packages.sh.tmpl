@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+{{ if and (eq .chezmoi.os "linux") (.chezmoi.osRelease.id | lower | contains "arch") -}}
+# Script generated for dom1nux on 2025-03-20 21:52:07
+
+echo "Starting Arch Linux package installation..."
+
+# Install native packages first
+echo "Installing Arch native packages..."
+sudo pacman -Syu --needed {{ range .packages.arch.pacman }} {{.}}{{ end }}
+
+# Bootstrap yay-bin if not present
+if ! command -v yay &> /dev/null; then
+    echo "Bootstrapping yay-bin installation..."
+    # Use /tmp for build - yay manages its own cache in ~/.cache/yay
+    TMP_DIR=$(mktemp -d)
+    git clone https://aur.archlinux.org/yay-bin.git "$TMP_DIR"
+    cd "$TMP_DIR"
+    makepkg -si --noconfirm
+    # Clean up temporary build files
+    cd "$HOME"
+    rm -rf "$TMP_DIR"
+    echo "yay-bin bootstrapped successfully"
+fi
+
+# Install AUR packages
+echo "Installing AUR packages..."
+yay -Syu --needed {{ range .packages.arch.aur }} {{.}}{{ end }}
+
+echo "Package installation completed successfully!"
+{{ end }}
