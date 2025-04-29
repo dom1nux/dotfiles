@@ -3,23 +3,9 @@
 {{ if and (eq .chezmoi.os "linux") (.chezmoi.osRelease.id | lower | contains "arch") -}}
 echo "Starting Arch Linux package installation..."
 
-# Check if running in WSL using kernel version
-IS_WSL={{ contains "microsoft" (.chezmoi.kernel.osrelease | lower) }}
-if [ "$IS_WSL" = true ]; then
-    echo "WSL environment detected - will skip desktop packages"
-fi
-
 # Install native CLI packages first
-echo "Installing Arch native CLI packages..."
+echo "#### Installing Arch native CLI packages... ####"
 sudo pacman -Syu --needed {{ range .packages.arch.cli.pacman }} {{.}}{{ end }}
-
-{{ if not (contains "microsoft" (.chezmoi.kernel.osrelease | lower)) -}}
-# Install native desktop packages if not in WSL
-if [ "$IS_WSL" = false ]; then
-    echo "Installing Arch native desktop packages..."
-    sudo pacman -Syu --needed {{ range .packages.arch.desktop.pacman }} {{.}}{{ end }}
-fi
-{{ end }}
 
 # Bootstrap yay-bin if not present
 if ! command -v yay &> /dev/null; then
@@ -37,15 +23,17 @@ fi
 # {{ if .packages.arch.cli.aur }}
 # echo "Installing AUR CLI packages..."
 # yay -Syu --needed {{ range .packages.arch.cli.aur }} {{.}}{{ end }}
-# {{ end }}
+{{ end }}
 
-{{ if not (contains "microsoft" (.chezmoi.kernel.osrelease | lower)) -}}
+{{ if and (and (eq .chezmoi.os "linux") (.chezmoi.osRelease.id | lower | contains "arch")) (not (.chezmoi.kernel.osrelease | lower | contains "wsl")) -}}
+# Install native desktop packages if not in WSL
+echo "#### Installing Arch native desktop packages...####"
+sudo pacman -Syu --needed {{ range .packages.arch.desktop.pacman }} {{.}}{{ end }}
+
 # Install AUR desktop packages if not in WSL
-if [ "$IS_WSL" = false ]; then
-    echo "Installing AUR desktop packages..."
-    yay -Syu --needed {{ range .packages.arch.desktop.aur }} {{.}}{{ end }}
-fi
-{{ end }}
+echo "#### Installing AUR desktop packages...####"
+yay -Syu --needed {{ range .packages.arch.desktop.aur }} {{.}}{{ end }}
 
-echo "Package installation completed successfully!"
-{{ end }}
+{{ end}}
+
+echo "#### Package installation completed successfully! ####"
