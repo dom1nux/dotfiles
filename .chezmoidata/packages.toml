@@ -1,48 +1,58 @@
 [packages]
-  [packages.arch]
-    pacman = [
-      # Development tools
-      "git",
-      "base-devel",
-      
-      # Editors
-      "vim",
-      "helix",
-      
-      # Modern CLI tools
-      "bat",
-      "eza",
-      "zoxide",
-      "ripgrep",
-      "fzf",
-      "lazygit",
-      
-      # System utilities
-      "btop",
-      "tlp",
-      "tlp-rdw",
-      "fastfetch",
-      "ghostty",
-      
-      # Container and orchestration
-      "kubectl",
-      "minikube",
-      "docker-buildx",
-      "docker-compose",
-      
-      # Security
-      "keepassxc",
-      
-      # Creative tools
-      "blender",
-      "freecad"
-    ]
-    
-    aur = [
-      # Browsers
-      "brave-bin",
-      
-      # Development
-      "visual-studio-code-bin",
-      "docker-rootless-extras"
-    ]
+[packages.arch]
+[packages.arch.cli]
+pacman = [
+  # Development tools
+  "git",
+  "base-devel",
+
+  # Editors
+  "vim",
+  "helix",
+
+  # Modern CLI tools
+  "bat",
+  "eza",
+  "zoxide",
+  "ripgrep",
+  "fzf",
+  "lazygit",
+
+  # System utilities
+  "btop",
+  "fastfetch",
+
+  # Container and orchestration
+  "kubectl",
+  "minikube",
+]
+
+aur = []
+
+[packages.arch.desktop]
+pacman = [
+  # Security
+  "keepassxc",
+
+  # Creative tools
+  "blender",
+  "freecad",
+
+  # System utilities
+  "tlp",
+  "tlp-rdw",
+  "ghostty",
+
+  # Container and virtualization
+  "docker-buildx",
+  "docker-compose",
+]
+
+aur = [
+  # Browsers
+  "brave-bin",
+
+  # Development
+  "visual-studio-code-bin",
+  "docker-rootless-extras",
+]
