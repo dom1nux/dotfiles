@@ -19,10 +19,6 @@ if ! command -v yay &> /dev/null; then
     echo "yay-bin bootstrapped successfully"
 fi
 
-# Install AUR CLI packages if any - currently none defined
-# {{ if .packages.arch.cli.aur }}
-# echo "Installing AUR CLI packages..."
-# yay -Syu --needed {{ range .packages.arch.cli.aur }} {{.}}{{ end }}
 {{ end }}
 
 {{ if and (and (eq .chezmoi.os "linux") (.chezmoi.osRelease.id | lower | contains "arch")) (not (.chezmoi.kernel.osrelease | lower | contains "wsl")) -}}
@@ -34,6 +30,6 @@ sudo pacman -Syu --needed {{ range .packages.arch.desktop.pacman }} {{.}}{{ end 
 echo "#### Installing AUR desktop packages...####"
 yay -Syu --needed {{ range .packages.arch.desktop.aur }} {{.}}{{ end }}
 
-{{ end}}
+{{ end }}
 
 echo "#### Package installation completed successfully! ####"
