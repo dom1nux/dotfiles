@@ -4,7 +4,7 @@
 echo "Starting Arch Linux package installation..."
 
 # Check if running in WSL using kernel version
-IS_WSL={{ contains "microsoft" (.chezmoi.kernel.version | lower) }}
+IS_WSL={{ contains "microsoft" (.chezmoi.kernel.osrelease | lower) }}
 if [ "$IS_WSL" = true ]; then
     echo "WSL environment detected - will skip desktop packages"
 fi
@@ -13,7 +13,7 @@ fi
 echo "Installing Arch native CLI packages..."
 sudo pacman -Syu --needed {{ range .packages.arch.cli.pacman }} {{.}}{{ end }}
 
-{{ if not (contains "microsoft" (.chezmoi.kernel.version | lower)) -}}
+{{ if not (contains "microsoft" (.chezmoi.kernel.osrelease | lower)) -}}
 # Install native desktop packages if not in WSL
 if [ "$IS_WSL" = false ]; then
     echo "Installing Arch native desktop packages..."
@@ -39,7 +39,7 @@ fi
 # yay -Syu --needed {{ range .packages.arch.cli.aur }} {{.}}{{ end }}
 # {{ end }}
 
-{{ if not (contains "microsoft" (.chezmoi.kernel.version | lower)) -}}
+{{ if not (contains "microsoft" (.chezmoi.kernel.osrelease | lower)) -}}
 # Install AUR desktop packages if not in WSL
 if [ "$IS_WSL" = false ]; then
     echo "Installing AUR desktop packages..."
