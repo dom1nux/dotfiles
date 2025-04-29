@@ -8,6 +8,12 @@ Host github.com
     HostName github.com
     Port 22
     IdentityFile ~/.ssh/id_github
+    
+Host chroma-cloud
+    HostName 161.132.51.54
+    User dom1nux
+    Port 22
+    IdentityFile ~/.ssh/id_elstk-dom1nux
 
 Host gitea.dom1nux.duckdns.org
     HostName gitea.dom1nux.duckdns.org
