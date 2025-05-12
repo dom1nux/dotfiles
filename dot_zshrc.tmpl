@@ -1,0 +1,54 @@
+export PATH=$PATH:/home/dom1nux/.local/bin
+{{- if and (eq .chezmoi.os "linux") (eq .chezmoi.hostname "mizuho") }}
+export EDITOR=helix
+
+eval "$(oh-my-posh init zsh --config '~/.config/oh-my-posh/myThemePowerlineMode.toml')"
+
+alias l='eza --icons=always'
+alias cat='bat'
+alias grep='grep --color=always'
+alias ip='ip -color=auto'
+alias ll='eza -la --icons=always'
+alias k='kubectl'
+alias cz='chezmoi'
+
+alias hx='helix'
+alias font-status='gsettings get org.gnome.desktop.interface text-scaling-factor'
+alias font-bigger='gsettings set org.gnome.desktop.interface text-scaling-factor 1.2'
+alias font-smaller='gsettings set org.gnome.desktop.interface text-scaling-factor 1.0'
+alias uefi='systemctl reboot --firmware-setup'
+{{- end }}
+{{- if and (eq .chezmoi.os "linux") (eq .chezmoi.hostname "mizuki") }}
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+eval "$(oh-my-posh init zsh --config '~/.config/oh-my-posh/myThemePowerlineMode.toml')"
+
+export PATH="/home/linuxbrew/.linuxbrew/opt/rustup/bin:$PATH"
+
+alias l='eza --icons=always'
+alias cat='bat'
+alias grep='grep --color=always'
+alias ip='ip -color=auto'
+alias ll='eza -la --icons=always'
+alias k='kubectl'
+alias cz='chezmoi'
+{{- end }}
+
+#### Zinit ####
+[[ -f ~/.config/zsh/zinit.zsh ]] && source ~/.config/zsh/zinit.zsh
+
+# Keybindings
+bindkey -e
+bindkey '^p' history-search-backward
+bindkey '^n' history-search-forward
+bindkey '^[w' kill-region
+
+# History
+HISTSIZE=5000
+HISTFILE=~/.zsh_history
+SAVEHIST=$HISTSIZE
+HISTDUP=erase
+setopt appendhistory sharehistory hist_ignore_space hist_ignore_all_dups hist_save_no_dups hist_ignore_dups hist_find_no_dups
+
+# Shell integrations
+eval "$(fzf --zsh)"
+eval "$(zoxide init --cmd cd zsh)"
