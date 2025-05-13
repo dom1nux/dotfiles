@@ -1,7 +1,7 @@
 #### Env Variables ####
 export PATH=$PATH:/home/dom1nux/.local/bin
 
-{{- if and (eq .chezmoi.os "linux") (eq .chezmoi.hostname "mizuki") }}
+{{- if and (eq .chezmoi.os "linux") (eq .chezmoi.hostname "Mizuki") }}
 export PATH="/home/linuxbrew/.linuxbrew/opt/rustup/bin:$PATH"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
@@ -13,7 +13,7 @@ export EDITOR=helix
 {{- end}}
 
 ### Eval Utils ####
-{{- if and (eq .chezmoi.os "linux") (eq .chezmoi.hostname "mizuki") }}
+{{- if and (eq .chezmoi.os "linux") (eq .chezmoi.hostname "Mizuki") }}
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 {{- end}}
 
