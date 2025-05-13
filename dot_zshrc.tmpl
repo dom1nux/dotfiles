@@ -1,8 +1,11 @@
-#### Env Variables ###
+#### Env Variables ####
 export PATH=$PATH:/home/dom1nux/.local/bin
 
 {{- if and (eq .chezmoi.os "linux") (eq .chezmoi.hostname "mizuki") }}
 export PATH="/home/linuxbrew/.linuxbrew/opt/rustup/bin:$PATH"
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 {{- end}}
 
 {{- if and (eq .chezmoi.os "linux") (eq .chezmoi.hostname "mizuho") }}
@@ -45,13 +48,13 @@ alias uefi='systemctl reboot --firmware-setup'
 #### Zinit ####
 [[ -f ~/.config/zsh/zinit.zsh ]] && source ~/.config/zsh/zinit.zsh
 
-# Keybindings
+#### Keybindings ####
 bindkey -e
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
 bindkey '^[w' kill-region
 
-# History
+#### History ####
 HISTSIZE=5000
 HISTFILE=~/.zsh_history
 SAVEHIST=$HISTSIZE
