@@ -34,7 +34,7 @@ alias l='eza --icons=always'
 alias ls='eza --icons=always'
 alias ll='eza -la --icons=always'
 alias lg='lazygit'
-alias cat='bat'
+alias cat='bat -p --style plain'
 {{- end }}
 
 {{- if and (eq .chezmoi.os "linux") (eq .chezmoi.hostname "mizuho") }}
