@@ -28,13 +28,14 @@ alias k='kubectl'
 alias cz='chezmoi'
 alias grep='grep --color=always'
 alias ip='ip -color=auto'
+alias apply='chezmoi -v apply'
 
 {{- if and (eq .chezmoi.os "linux") (ne .chezmoi.hostname "zero") }}
 alias l='eza --icons=always'
 alias ls='eza --icons=always'
 alias ll='eza -la --icons=always'
 alias lg='lazygit'
-alias cat='bat -p --style plain'
+alias cat='bat -P --style plain'
 {{- end }}
 
 {{- if and (eq .chezmoi.os "linux") (eq .chezmoi.hostname "mizuho") }}
