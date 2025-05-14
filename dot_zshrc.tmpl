@@ -28,7 +28,7 @@ alias k='kubectl'
 alias cz='chezmoi'
 alias grep='grep --color=always'
 alias ip='ip -color=auto'
-alias apply='chezmoi -v apply'
+alias ap='chezmoi -v apply'
 
 {{- if and (eq .chezmoi.os "linux") (ne .chezmoi.hostname "zero") }}
 alias l='eza --icons=always'
