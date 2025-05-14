@@ -1,6 +1,6 @@
-#inherits = "tokyonight"
+inherits = "tokyonight"
 #inherits = "rose_pine"
-inherits = "github_dark"
+#inherits = "github_dark"
 
 "ui.background" = { fg = "fg"}
 "ui.text" = { fg = "fg" }

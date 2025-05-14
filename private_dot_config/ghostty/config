@@ -1,7 +1,7 @@
 #### Theme ####
 #theme = rose-pine
-#theme = tokyonight
-theme = GitHub-Dark-Default
+theme = tokyonight
+#theme = GitHub-Dark-Default
 #theme = GitHub-Dark-High-Contrast
 
 #### Keybindings ####
@@ -26,7 +26,7 @@ cursor-invert-fg-bg = true
 mouse-hide-while-typing = true
 
 #### Window options ####
-background-opacity = 0.96
+background-opacity = 0.94
 window-padding-x = 10
 window-padding-y = 10
 window-padding-balance = true
