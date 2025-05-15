@@ -15,7 +15,7 @@ Host chroma-cloud
     Port 22
     IdentityFile ~/.ssh/id_elstk-dom1nux
 
-Host gitea.dom1nux.duckdns.org
-    HostName gitea.dom1nux.duckdns.org
-    Port 22
+Host git.cloud.dominux.work
+    HostName cloud.dominux.work
+    Port 222
     IdentityFile ~/.ssh/id_gitea
