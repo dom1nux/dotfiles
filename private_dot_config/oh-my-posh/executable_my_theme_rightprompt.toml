@@ -1,0 +1,100 @@
+"$schema" = "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json"
+
+console_title_template = '{{ .Shell }} in {{ .Folder }}'
+version = 3
+final_space = false
+enable_cursor_positioning = false
+auto_update = true
+
+[secondary_prompt]
+template = '▶ '
+foreground = 'white'
+background = 'transparent'
+
+[transient_prompt]
+template = ' '
+background = 'transparent'
+foreground_templates = [
+  '{{if gt .Code 0}}red{{end}}',
+  '{{if eq .Code 0}}white{{end}}',
+]
+
+[[blocks]]
+type = 'prompt'
+alignment = 'left'
+newline = false
+
+  [[blocks.segments]]
+  type = "os"
+  style = "plain"
+  background = 'transparent'
+  template = "{{.Icon}} "
+  foreground_templates = [
+    '{{if gt .Code 0}}red{{end}}',
+    '{{if eq .Code 0}}white{{end}}',
+  ]
+
+    [blocks.segments.properties]
+    ubuntu = ''
+    arch = ''
+    windows = '󰨡'
+
+  [[blocks.segments]]
+  style = 'plain'
+  template = ' '
+  background = 'transparent'
+  type = 'text'
+  foreground_templates = [
+    '{{if gt .Code 0}}red{{end}}',
+    '{{if eq .Code 0}}white{{end}}',
+  ]
+
+
+[[blocks]]
+type = 'rprompt'
+overflow = 'hidden'
+
+  [[blocks.segments]]
+  type = 'path'
+  style = 'plain'
+  template = '{{ .Path }}'
+  foreground = 'blue'
+  background = 'transparent'
+
+    [blocks.segments.properties]
+    style = 'agnoster_short'
+    max_depth = 1
+    hide_root_location = false
+
+  [[blocks.segments]]
+  type = 'git'
+  style = 'plain'
+  template = ' {{ .HEAD }}{{ if or (.Working.Changed) (.Staging.Changed) }}*{{ end }}{{ if gt .Behind 0 }}▼{{ end }}{{ if gt .Ahead 0 }}▲{{ end }}'
+  foreground = 'yellow'
+  background = 'transparent'
+
+    [blocks.segments.properties]
+    branch_icon = ' '
+    commit_icon = '@'
+    fetch_status = true
+
+  [[blocks.segments]]
+  type = "ruby"
+  style = "plain"
+  foreground = "red"
+  background = "transparent"
+  template = " rb ◆ {{ .Full }}"
+
+  [[blocks.segments]]
+  type = "python"
+  style = "plain"
+  foreground = "yellow"
+  background = "transparent"
+  template = " <blue>py</> <blue>⌉</>⌊ {{ .Major }}.{{ .Minor }}"
+
+  [[blocks.segments]]
+  type = "dotnet"
+  style = "plain"
+  foreground = "magenta"
+  background = "transparent"
+  template = " .net  {{ .Major }}.{{ .Minor }}"
