@@ -15,10 +15,11 @@ export EDITOR=helix
 ### Eval Utils ####
 {{- if and (eq .chezmoi.os "linux") (eq .chezmoi.hostname "Mizuki") }}
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+eval "$(~/.local/bin/mise activate)"
 {{- end}}
 
 {{- if and (eq .chezmoi.os "linux") (ne .chezmoi.hostname "zero") }}
-eval "$(oh-my-posh init zsh --config '~/.config/oh-my-posh/myThemePowerlineMode.toml')"
+eval "$(oh-my-posh init zsh --config '~/.config/oh-my-posh/my_theme_rightprompt.toml')"
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
 {{- end}}
