@@ -1,21 +1,28 @@
+##-------------##
+#### Servers ####
+##-------------##
 Host zero
-    HostName zero.aardwolf-bellatrix.ts.net
-    User dom1nux
+    HostName 100.83.92.73
+    User root
     Port 22
     IdentityFile ~/.ssh/id_zero
     
+Host chroma-cloud
+    HostName cloud.dominux.work
+    User dom1nux
+    Port 22
+    IdentityFile ~/.ssh/id_elstk-dom1nux
+
+##-----------------##
+#### Git hosting ####
+##-----------------##
 Host github.com
     HostName github.com
     Port 22
     IdentityFile ~/.ssh/id_github
-    
-Host chroma-cloud
-    HostName 161.132.51.54
-    User dom1nux
-    Port 22
-    IdentityFile ~/.ssh/id_elstk-dom1nux
 
 Host git.cloud.dominux.work
     HostName cloud.dominux.work
     Port 222
     IdentityFile ~/.ssh/id_gitea
+
