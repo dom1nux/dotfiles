@@ -2,26 +2,6 @@
 [packages.arch]
 [packages.arch.cli]
 pacman = [
-  # Development tools
-  "git",
-  "base-devel",
-
-  # Editors
-  "vim",
-  "helix",
-
-  # Modern CLI tools
-  "bat",
-  "eza",
-  "zoxide",
-  "ripgrep",
-  "fzf",
-  "lazygit",
-
-  # System utilities
-  "btop",
-  "fastfetch",
-
   # Container and orchestration
   "kubectl",
   "minikube",
@@ -34,18 +14,9 @@ pacman = [
   # Security
   "keepassxc",
 
-  # Creative tools
-  "blender",
-  "freecad",
-
   # System utilities
   "tlp",
-  "tlp-rdw",
   "ghostty",
-
-  # Container and virtualization
-  "docker-buildx",
-  "docker-compose",
 ]
 
 aur = [
@@ -54,5 +25,4 @@ aur = [
 
   # Development
   "visual-studio-code-bin",
-  "docker-rootless-extras",
 ]
