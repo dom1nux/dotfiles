@@ -1,5 +1,5 @@
 # Dotfiles
-This repository contains my personal dotfiles managed by `chezmoi`. These configurations use a **workload-based architecture** where different targets implement several workloads.
+This repository contains my personal dotfiles managed by `chezmoi`. These configurations use a **workload-based architecture** where different targets (systems) implement specific workloads based on their purpose and capabilities.
 
 ## Table of Contents
 - [Dotfiles](#dotfiles)
