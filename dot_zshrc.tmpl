@@ -1,50 +1,26 @@
-#### Env Variables ####
+#### Core Setup ####
 export PATH=$PATH:/home/dom1nux/.local/bin
 
-{{- if and (eq .chezmoi.os "linux") (eq .chezmoi.hostname "Mizuki") }}
-export PATH="/home/linuxbrew/.linuxbrew/opt/rustup/bin:$PATH"
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-{{- end}}
+#### Target-Specific Configuration ####
+{{- if eq .chezmoi.hostname "Mizuki" }}
+[[ -f ~/.config/zsh/targets/mizuki.zsh ]] && source ~/.config/zsh/targets/mizuki.zsh
+{{- else if eq .chezmoi.hostname "mizuho" }}
+[[ -f ~/.config/zsh/targets/mizuho.zsh ]] && source ~/.config/zsh/targets/mizuho.zsh
+{{- else if eq .chezmoi.hostname "zero" }}
+[[ -f ~/.config/zsh/targets/zero.zsh ]] && source ~/.config/zsh/targets/zero.zsh
+{{- end }}
 
-### Eval Utils ####
-{{- if and (eq .chezmoi.os "linux") (eq .chezmoi.hostname "Mizuki") }}
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-eval "$(~/.local/bin/mise activate)"
-{{- end}}
-
-{{- if and (eq .chezmoi.os "linux") (ne .chezmoi.hostname "zero") }}
-eval "$(oh-my-posh init zsh --config '~/.config/oh-my-posh/my_theme_rightprompt.toml')"
-eval "$(fzf --zsh)"
-eval "$(zoxide init --cmd cd zsh)"
-{{- end}}
-
-#### Aliases ####
-alias k='kubectl'
+#### Universal Aliases ####
 alias cz='chezmoi'
+alias ap='chezmoi -v apply'
 alias grep='grep --color=always'
 alias ip='ip -color=auto'
-alias ap='chezmoi -v apply'
 
-{{- if and (eq .chezmoi.os "linux") (ne .chezmoi.hostname "zero") }}
-alias l='eza --icons=always'
-alias ls='eza --icons=always'
-alias ll='eza -la --icons=always'
-alias lg='lazygit'
-alias cat='bat -P --style plain'
-{{- end }}
-
-{{- if and (eq .chezmoi.os "linux") (eq .chezmoi.hostname "mizuho") }}
-alias hx='helix'
-alias font-status='gsettings get org.gnome.desktop.interface text-scaling-factor'
-alias font-bigger='gsettings set org.gnome.desktop.interface text-scaling-factor 1.2'
-alias font-smaller='gsettings set org.gnome.desktop.interface text-scaling-factor 1.0'
-alias uefi='systemctl reboot --firmware-setup'
-{{- end }}
-
-#### Zinit ####
-[[ -f ~/.config/zsh/zinit.zsh ]] && source ~/.config/zsh/zinit.zsh
+#### Core Navigation ####
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias ll='ls -la'
 
 #### Keybindings ####
 bindkey -e
