@@ -13,7 +13,7 @@ keybind = super+ctrl+right=goto_split:right
 keybind = ctrl+shift+tab=next_tab
 
 #### Font type ####
-font-family = "CaskaydiaCove NF"
+font-family = "CaskaydiaCove NF Regular"
 font-size = 14
 
 #### Shell integration ####
@@ -36,3 +36,6 @@ window-width = 110
 
 #### Enable notifications ####
 desktop-notifications = true
+
+#### Tabs position ####
+gtk-tabs-location = bottom
