@@ -2,7 +2,6 @@
 [packages.arch]
 [packages.arch.cli]
 pacman = [
-  # Container and orchestration
   "kubectl",
   "minikube",
 ]
@@ -11,18 +10,14 @@ aur = []
 
 [packages.arch.desktop]
 pacman = [
-  # Security
-  "keepassxc",
-
-  # System utilities
   "tlp",
+  "keepassxc",
   "ghostty",
+  "discord",
 ]
 
 aur = [
-  # Browsers
   "brave-bin",
-
-  # Development
   "visual-studio-code-bin",
+  "youtube-music-bin",
 ]
