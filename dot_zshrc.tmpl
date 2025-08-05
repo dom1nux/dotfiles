@@ -10,17 +10,17 @@ export PATH=$PATH:/home/dom1nux/.local/bin
 [[ -f ~/.config/zsh/targets/zero.zsh ]] && source ~/.config/zsh/targets/zero.zsh
 {{- end }}
 
-#### Universal Aliases ####
+#### Aliases ####
 alias cz='chezmoi'
 alias ap='chezmoi -v apply'
 alias grep='grep --color=always'
 alias ip='ip -color=auto'
-
-#### Core Navigation ####
+alias ll='ls -la'
+alias cls='clear'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
-alias ll='ls -la'
+
 
 #### Keybindings ####
 bindkey -e
