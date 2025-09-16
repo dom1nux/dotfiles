@@ -40,6 +40,21 @@ newline = false
     windows = '󰨡'
 
   [[blocks.segments]]
+  type = 'path'
+  style = 'plain'
+  template = '{{ .Path }} '
+  background = 'transparent'
+  foreground_templates = [
+    '{{if gt .Code 0}}red{{end}}',
+    '{{if eq .Code 0}}white{{end}}',
+  ]
+
+    [blocks.segments.properties]
+    style = 'powerlevel'
+    max_depth = 1
+    hide_root_location = false
+
+  [[blocks.segments]]
   style = 'plain'
   template = ' '
   background = 'transparent'
@@ -53,18 +68,6 @@ newline = false
 [[blocks]]
 type = 'rprompt'
 overflow = 'hidden'
-
-  [[blocks.segments]]
-  type = 'path'
-  style = 'plain'
-  template = '{{ .Path }}'
-  foreground = 'blue'
-  background = 'transparent'
-
-    [blocks.segments.properties]
-    style = 'agnoster_short'
-    max_depth = 1
-    hide_root_location = false
 
   [[blocks.segments]]
   type = 'git'
