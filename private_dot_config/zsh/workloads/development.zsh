@@ -2,8 +2,8 @@
 export BAT_THEME=ansi
 
 #### Tools init ####
-eval "$(~/.local/bin/oh-my-posh init zsh --config '~/.config/oh-my-posh/my_theme_rightprompt.toml')"
-eval "$(~/.local/bin/mise activate zsh)"
+eval "$(oh-my-posh init zsh --config '~/.config/oh-my-posh/my_theme_rightprompt.toml')"
+eval "$(mise activate zsh)"
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
 
