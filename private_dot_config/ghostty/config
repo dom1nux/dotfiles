@@ -1,8 +1,5 @@
 #### Theme ####
-#theme = rose-pine
-theme = tokyonight
-#theme = GitHub-Dark-Default
-#theme = GitHub-Dark-High-Contrast
+theme = Catppuccin Mocha
 
 #### Keybindings ####
 keybind = ctrl+alt+d=toggle_window_decorations 
@@ -14,7 +11,7 @@ keybind = ctrl+shift+tab=next_tab
 
 #### Font type ####
 font-family = "CaskaydiaCove NF Regular"
-font-size = 14
+font-size = 12
 
 #### Shell integration ####
 shell-integration-features = no-cursor
@@ -26,7 +23,7 @@ cursor-invert-fg-bg = true
 mouse-hide-while-typing = true
 
 #### Window options ####
-background-opacity = 0.94
+#background-opacity = 0.94
 window-padding-x = 10
 window-padding-y = 10
 window-padding-balance = true
