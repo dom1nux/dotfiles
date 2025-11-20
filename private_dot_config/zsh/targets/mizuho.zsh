@@ -5,6 +5,7 @@
 # Variables #
 export EDITOR="code"
 export SUDO_EDITOR="helix"
+export SSH_AUTH_SOCK=/home/dom1nux/.bitwarden-ssh-agent.sock
 
 # Aliases #
 alias hx='helix'
