@@ -1,28 +1,29 @@
 ##-------------##
 #### Servers ####
 ##-------------##
-Host zero
-    HostName 100.83.92.73
+Host yozora
+    HostName 100.116.0.36
     User root
     Port 22
-    IdentityFile ~/.ssh/id_zero
+
     
 Host chroma-cloud
     HostName cloud.dominux.work
     User dom1nux
-    Port 22
-    IdentityFile ~/.ssh/id_elstk-dom1nux
+    Port 22   
 
 ##-----------------##
 #### Git hosting ####
 ##-----------------##
 Host github.com
     HostName github.com
-    Port 22
-    IdentityFile ~/.ssh/id_github
+    Port 22 
 
-Host git.cloud.dominux.work
-    HostName cloud.dominux.work
-    Port 222
-    IdentityFile ~/.ssh/id_gitea
+Host gitlab.com
+    HostName gitlab.com
+    Port 22
+
+Host git.home.dominux.work
+    HostName git.home.dominux.work
+    Port 222    
 
