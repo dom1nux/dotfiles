@@ -1,0 +1,87 @@
+;; Kanata configuration for Spanish characters using xcompose
+;; Activation: 
+;;   - Hold SPACE = lowercase layer (á, é, í, ó, ú, ñ, ¿)
+;;   - Hold SPACE + SHIFT = uppercase layer (Á, É, Í, Ó, Ú, Ñ, ¡)
+;;   - Hold SPACE + ALT = lowercase diaeresis layer (ü, ä)
+;;   - Hold SPACE + ALT + SHIFT = uppercase diaeresis layer (Ü, Ä)
+;; Requirements: CapsLock configured as Compose key in xcompose
+
+(defcfg
+  process-unmapped-keys yes
+)
+
+;; Define base keys
+(defsrc
+  spc
+  a e i o u n q
+  lalt ralt lsft rsft
+)
+
+(deflayer base
+  @spc-layer
+  a e i o u n q
+  lalt ralt lsft rsft
+)
+
+;; Spanish characters layer - LOWERCASE
+(deflayer spanish-lower
+  _
+  @a-lower @e-lower @i-lower @o-lower @u-lower @n-lower @inv-q-lower
+  (layer-while-held spanish-dieresis) (layer-while-held spanish-dieresis) (layer-while-held spanish-upper) (layer-while-held spanish-upper)
+)
+
+;; Spanish characters layer - UPPERCASE
+(deflayer spanish-upper
+  _
+  @a-upper @e-upper @i-upper @o-upper @u-upper @n-upper @inv-excl
+  (layer-while-held spanish-dieresis-upper) (layer-while-held spanish-dieresis-upper) _ _
+)
+
+;; DIAERESIS layer - LOWERCASE
+(deflayer spanish-dieresis
+  _
+  @a-dieresis-lower _ _ _ @u-dieresis-lower _ _
+  _ _ (layer-while-held spanish-dieresis-upper) (layer-while-held spanish-dieresis-upper)
+)
+
+;; DIAERESIS layer - UPPERCASE
+(deflayer spanish-dieresis-upper
+  _
+  @a-dieresis-upper _ _ _ @u-dieresis-upper _ _
+  _ _ _ _
+)
+
+(defalias
+  ;; Space: tap = space, hold = lowercase layer
+  spc-layer (tap-hold 200 200 spc (layer-while-held spanish-lower))
+  
+  ;; ========== LOWERCASE WITH ACUTE ACCENT ==========
+  ;; CapsLock + ' + vowel
+  a-lower (macro caps apo a)
+  e-lower (macro caps apo e)
+  i-lower (macro caps apo i)
+  o-lower (macro caps apo o)
+  u-lower (macro caps apo u)
+  n-lower (macro caps S-grv n)  ;; CapsLock + ~ + n
+  inv-q-lower (macro caps S-/ S-/)  ;; CapsLock + ? + ?
+  
+  ;; ========== UPPERCASE WITH ACUTE ACCENT ==========
+  ;; CapsLock + ' + VOWEL
+  a-upper (macro caps apo S-a)
+  e-upper (macro caps apo S-e)
+  i-upper (macro caps apo S-i)
+  o-upper (macro caps apo S-o)
+  u-upper (macro caps apo S-u)
+  n-upper (macro caps S-grv S-n)  ;; CapsLock + ~ + N
+  inv-excl (macro caps S-Digit1 S-Digit1)  ;; CapsLock + ! + !
+  
+  ;; ========== LOWERCASE DIAERESIS ==========
+  ;; CapsLock + " + vowel
+  u-dieresis-lower (macro caps S-apo u)
+  a-dieresis-lower (macro caps S-apo a)
+  
+  ;; ========== UPPERCASE DIAERESIS ==========
+  ;; CapsLock + " + VOWEL
+  u-dieresis-upper (macro caps S-apo S-u)
+  a-dieresis-upper (macro caps S-apo S-a)
+)
