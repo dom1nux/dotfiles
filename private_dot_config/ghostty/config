@@ -36,3 +36,6 @@ desktop-notifications = true
 
 #### Tabs position ####
 gtk-tabs-location = bottom
+
+# Slowdown mouse scrolling
+mouse-scroll-multiplier = 0.95
