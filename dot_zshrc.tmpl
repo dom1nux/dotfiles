@@ -46,6 +46,10 @@ bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
 bindkey '^[w' kill-region
 
+# --- Completion Setup ---
+# Add custom completion directory to fpath
+fpath=(~/.config/zsh/completion $fpath)
+
 {{- if $useZinit }}
 
 # --- Zinit Plugin Manager ---
@@ -203,6 +207,12 @@ open() {
         explorer.exe "$@"
     fi
 }
+{{- end }}
+
+{{- if $isDesktop }}
+
+# Load desktop-specific functions (media transcoding, disk operations, etc.)
+[[ -f ~/.config/zsh/desktop_functions.zsh ]] && source ~/.config/zsh/desktop_functions.zsh
 {{- end }}
 
 # --- Performance: Compile ZSH files for faster loading ---
