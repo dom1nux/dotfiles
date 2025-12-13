@@ -1,0 +1,64 @@
+# Chezmoi data for machine profiles
+machines:
+  Mizuki:
+    profile: "wsl-dev"
+    features:
+      - development
+      - wsl
+      - zinit
+    editor: "hx"
+    sudo_editor: "hx"
+    has_homebrew: true
+    has_mise: true
+    prompt: "oh-my-posh"
+    
+  mizuho:
+    profile: "linux-dev"
+    features:
+      - development
+      - desktop
+      - zinit
+    editor: "helix"
+    sudo_editor: "helix"
+    has_mise: true
+    prompt: "oh-my-posh"
+    ssh_agent: "/home/dom1nux/.bitwarden-ssh-agent.sock"
+    
+  zero:
+    profile: "server"
+    features:
+      - server
+    editor: "vi"
+    sudo_editor: "vi"
+    prompt: "simple"
+
+# Feature definitions
+features:
+  development:
+    tools:
+      - fzf
+      - zoxide
+      - eza
+      - bat
+      - mise
+    zinit_plugins:
+      - zsh-users/zsh-syntax-highlighting
+      - zsh-users/zsh-completions
+      - zsh-users/zsh-autosuggestions
+      - Aloxaf/fzf-tab
+    zinit_snippets:
+      - OMZL::git.zsh
+      - OMZP::sudo
+      - OMZP::kubectl
+      
+  desktop:
+    tools: []
+    
+  wsl:
+    tools: []
+    
+  server:
+    tools: []
+    
+  zinit:
+    enabled: true
