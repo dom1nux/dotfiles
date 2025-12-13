@@ -1,0 +1,40 @@
+{{- /* Machine-specific configuration detection */ -}}
+{{- $isMizuki := eq .chezmoi.hostname "Mizuki" -}}
+{{- $isMizuho := eq .chezmoi.hostname "mizuho" -}}
+{{- $isZero := eq .chezmoi.hostname "zero" -}}
+{{- $isDev := or $isMizuki $isMizuho -}}
+
+{{- if $isDev }}
+# ============================================================================
+# Advanced Performance: Lazy Loading Functions
+# Source this file from .zshrc for even better startup times
+# ============================================================================
+
+# Lazy load mise - only initialize when first used
+if command -v mise &> /dev/null; then
+    mise() {
+        unfunction mise
+        eval "$(command mise activate zsh)"
+        mise "$@"
+    }
+fi
+
+# Lazy load kubectl - only initialize when first used
+if command -v kubectl &> /dev/null; then
+    kubectl() {
+        unfunction kubectl
+        source <(command kubectl completion zsh)
+        kubectl "$@"
+    }
+fi
+
+# Compile .zshrc for faster loading
+if [[ ! -f ~/.zshrc.zwc ]] || [[ ~/.zshrc -nt ~/.zshrc.zwc ]]; then
+    zcompile ~/.zshrc
+fi
+
+# Compile completion dump for faster loading
+if [[ -f ~/.zcompdump ]] && [[ (! -f ~/.zcompdump.zwc) || (~/.zcompdump -nt ~/.zcompdump.zwc) ]]; then
+    zcompile ~/.zcompdump
+fi
+{{- end }}
