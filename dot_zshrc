@@ -1,0 +1,101 @@
+# ── Env & Path ───────────────────────────────────────────────────────────────
+export PATH="$HOME/.local/bin:$PATH"
+export EDITOR="nvim"
+export BAT_THEME="ansi"
+
+# fzf — use fd as backend, bat as previewer
+export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
+export FZF_DEFAULT_OPTS="
+  --height 50% --layout=reverse --border
+  --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8
+  --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc
+  --color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8
+  --color=selected-bg:#45475a
+"
+
+# ── Aliases ───────────────────────────────────────────────────────────────────
+alias so="source ~/.zshrc"
+alias cls="clear"
+alias ls="eza --group-directories-first --icons=always"
+alias ll="ls -la"
+alias lt="eza --tree --level=2 --long --icons --git"
+alias cat="bat -P --style=plain"
+alias rg="rg --smart-case --color=always"
+alias cz="chezmoi"
+alias cza="chezmoi apply"
+alias lg="lazygit"
+
+# ── Interactive only ──────────────────────────────────────────────────────────
+[[ $- != *i* ]] && return
+
+# ── History ───────────────────────────────────────────────────────────────────
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt appendhistory sharehistory
+setopt hist_ignore_space hist_ignore_all_dups hist_save_no_dups hist_find_no_dups
+
+# ── Keybindings ───────────────────────────────────────────────────────────────
+bindkey -e
+bindkey '^p' history-search-backward
+bindkey '^n' history-search-forward
+
+# ── Zinit ─────────────────────────────────────────────────────────────────────
+ZINIT_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/zinit/zinit.git"
+if [[ ! -d "$ZINIT_HOME" ]]; then
+    mkdir -p "$(dirname $ZINIT_HOME)"
+    git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+fi
+source "${ZINIT_HOME}/zinit.zsh"
+
+zinit light zsh-users/zsh-syntax-highlighting
+zinit light zsh-users/zsh-autosuggestions
+zinit light zsh-users/zsh-completions
+zinit light Aloxaf/fzf-tab
+
+zinit snippet OMZP::sudo
+
+# ── Completion ────────────────────────────────────────────────────────────────
+autoload -Uz compinit
+if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qN.mh+24) ]]; then
+    compinit
+else
+    compinit -C
+fi
+
+zinit cdreplay -q
+
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' menu no
+zstyle ':fzf-tab:complete:cd:*'        fzf-preview 'eza --icons --color=always $realpath'
+zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'eza --icons --color=always $realpath'
+zstyle ':fzf-tab:complete:*:*'         fzf-preview 'bat --color=always --style=numbers $realpath 2>/dev/null || eza --icons --color=always $realpath'
+
+# ── Tools ─────────────────────────────────────────────────────────────────────
+eval "$(fzf --zsh)"
+eval "$(zoxide init --cmd cd zsh)"
+eval "$(starship init zsh)"
+
+# ── Functions ─────────────────────────────────────────────────────────────────
+vi() {
+    if [[ $# -eq 0 ]]; then
+        nvim .
+    else
+        nvim "$@"
+    fi
+}
+
+# ── Fastfetch ─────────────────────────────────────────────────────────────────
+fastfetch --logo small --logo-padding-left 0 --logo-padding-right 4 --structure Title:Separator:OS:Host:Uptime:Shell --separator " "
+echo ""
+
+# ── Performance: compile zsh files ───────────────────────────────────────────
+if [[ ! -f ~/.zshrc.zwc ]] || [[ ~/.zshrc -nt ~/.zshrc.zwc ]]; then
+    zcompile ~/.zshrc
+fi
+if [[ -f ~/.zcompdump ]] && [[ (! -f ~/.zcompdump.zwc) || (~/.zcompdump -nt ~/.zcompdump.zwc) ]]; then
+    zcompile ~/.zcompdump
+fi
