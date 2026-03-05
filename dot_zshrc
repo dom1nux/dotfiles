@@ -16,4 +16,4 @@ alias lg="lazygit"
 # Tools
 eval "$(starship init zsh)"
 fastfetch --logo small --logo-padding-left 0 --logo-padding-right 4 --structure Title:Separator:OS:Host:Uptime:Shell --separator " "
-
+echo ""
