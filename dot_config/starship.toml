@@ -11,7 +11,7 @@ add_newline = false
 [os]
 disabled = false
 format = "[$symbol]($style) "
-style = "blue"
+style = "cyan"
 
 [os.symbols]
 Ubuntu  = ""
@@ -24,7 +24,7 @@ Windows = "󰨡"
 truncation_length = 2
 truncate_to_repo  = true
 truncation_symbol = "…/"
-style             = "bright-cyan"
+style             = "blue"
 format            = "[◗](yellow)[▶](purple) [$path]($style) "
 
 # ── Prompt character: acts as the "◗▶ " separator before path ─────────────
