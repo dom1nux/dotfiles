@@ -10,6 +10,10 @@ alias cz="chezmoi"
 alias cza="chezmoi apply"
 alias lg="lazygit"
 
+# ── Interactive only ─────────────────────────────
+[[ $- != *i* ]] && return
+
 # Tools
 eval "$(starship init zsh)"
+fastfetch --logo small --logo-padding-left 0 --logo-padding-right 4 --structure Title:Separator:OS:Host:Uptime:Shell --separator " "
 
