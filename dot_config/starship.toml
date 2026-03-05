@@ -1,52 +1,112 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
-format = """
-$username\
-$hostname\
-$directory\
-$git_branch\
-$git_state\
-$git_status\
-$cmd_duration\
-$line_break\
-$python\
-$character"""
+# Left: os icon + decorative separators + path
+# Right: git, ruby, python, dotnet
+format = """$os$directory$character"""
+right_format = """$git_branch$git_status$ruby$python$dotnet$nodejs$rust$kubernetes$cmd_duration"""
 
 add_newline = false
 
-[directory]
+# ── OS icon ───────────────────────────────────────────────────────────────
+[os]
+disabled = false
+format = "[$symbol]($style) "
 style = "blue"
 
+[os.symbols]
+Ubuntu  = ""
+Arch    = ""
+Windows = "󰨡"
+
+# ── Directory ─────────────────────────────────────────────────────────────
+# powerlevel style: max_depth = 1, hide_root_location = false
+[directory]
+truncation_length = 2
+truncate_to_repo  = true
+truncation_symbol = "…/"
+style             = "bright-cyan"
+format            = "[◗](yellow)[▶](purple) [$path]($style) "
+
+# ── Prompt character: acts as the "◗▶ " separator before path ─────────────
+# success = white, error = red — mirrors OMP foreground_templates on exit code
 [character]
-success_symbol = "[▶](purple)"
-error_symbol = "[▶](red)"
-vimcmd_symbol = "[◀](green)"
+format = "$symbol"
+success_symbol = "[● ](white)"
+error_symbol   = "[● ](red)"
+vimcmd_symbol  = "[● ](green)"
 
+
+# ── Git branch ────────────────────────────────────────────────────────────
 [git_branch]
-format = "[$branch]($style)"
-style = "bright-black"
+symbol = " "
+format = "[$symbol$branch]($style)"
+style  = "yellow"
 
+# ── Git status ────────────────────────────────────────────────────────────
+# OMP template: {{ if .Working.Changed or .Staging.Changed }}*{{ end }}▼▲
 [git_status]
-format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](218) ($ahead_behind$stashed)]($style)"
-style = "cyan"
-conflicted = "​"
-untracked = "​"
-modified = "​"
-staged = "​"
-renamed = "​"
-deleted = "​"
-stashed = "≡"
+format     = "[$all_status$ahead_behind]($style) "
+style      = "yellow"
+modified   = "*"
+staged     = "*"
+untracked  = "?"
+deleted    = ""
+renamed    = ""
+conflicted = ""
+stashed    = ""
+ahead      = "▲"
+behind     = "▼"
+diverged   = "▲▼"
+up_to_date = ""
 
-[git_state]
-format = '\([$state( $progress_current/$progress_total)]($style)\) '
-style = "bright-black"
+# ── Ruby ──────────────────────────────────────────────────────────────────
+# OMP template: " rb ◆ {{ .Full }}"
+[ruby]
+symbol         = " rb ◆ "
+format         = "[$symbol$version]($style) "
+style          = "red"
+version_format = "${raw}"
 
-[cmd_duration]
-format = "[$duration]($style) "
-style = "yellow"
-
+# ── Python ────────────────────────────────────────────────────────────────
+# OMP template: " py ⌉⌊ {{ .Major }}.{{ .Minor }}"  (blue)
 [python]
-format = "[$virtualenv]($style) "
-style = "bright-black"
+symbol         = " py ⌉⌊ "
+format         = "[$symbol$version]($style) "
+style          = "blue"
+version_format = "${major}.${minor}"
 detect_extensions = []
 detect_files = []
+
+# ── .NET ──────────────────────────────────────────────────────────────────
+# OMP template: " .net  {{ .Major }}.{{ .Minor }}"
+[dotnet]
+symbol         = " .net  "
+format         = "[$symbol$version]($style) "
+style          = "magenta"
+version_format = "${major}.${minor}"
+
+# ── Node.js ───────────────────────────────────────────────────────────────
+[nodejs]
+symbol         = " node ◆ "
+format         = "[$symbol$version]($style) "
+style          = "bold fg:#417E38"   # Node green
+version_format = "${major}.${minor}"
+
+# ── Rust ──────────────────────────────────────────────────────────────────
+[rust]
+symbol         = " rs ◆ "
+format         = "[$symbol$version]($style) "
+style          = "bold fg:#CE422B"   # Rust orange-red
+version_format = "${major}.${minor}"
+
+# ── Kubernetes ────────────────────────────────────────────────────────────
+[kubernetes]
+disabled = false
+format   = "[ $context(/$namespace)]($style) "
+style    = "bold fg:#326CE5"   # Kubernetes blue
+
+# ── Command duration ──────────────────────────────────────────────────────
+[cmd_duration]
+min_time = 2_000   # only show when command took > 2s
+format   = "[$duration]($style) "
+style    = "yellow"
