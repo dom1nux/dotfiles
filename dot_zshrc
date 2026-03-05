@@ -1,0 +1,15 @@
+# Created by newuser for 5.9
+
+# Aliases
+alias so="source ~/.zshrc"
+alias cls="clear"
+alias ls="eza --group-directories-first --icons=always"
+alias ll="ls -la"
+alias vi="nvim"
+alias cz="chezmoi"
+alias cza="chezmoi apply"
+alias lg="lazygit"
+
+# Tools
+eval "$(starship init zsh)"
+
