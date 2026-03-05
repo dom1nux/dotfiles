@@ -1,5 +1,14 @@
 [user]
 	email = go.francko.dr@gmail.com
 	name = dom1nux
+	signingkey = ./id_github_sign.pub
 [init]
 	defaultBranch = main
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[gpg]
+	format = ssh
