@@ -1,4 +1,5 @@
 # ── Env & Path ───────────────────────────────────────────────────────────────
+export COLORTERM="truecolor"
 export PATH="$HOME/.local/bin:$PATH"
 export EDITOR="nvim"
 export BAT_THEME="ansi"
