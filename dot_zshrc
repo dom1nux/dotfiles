@@ -78,7 +78,7 @@ zstyle ':fzf-tab:complete:*:*'         fzf-preview 'bat --color=always --style=n
 # ── Tools ─────────────────────────────────────────────────────────────────────
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
-eval "$(starship init zsh)"
+eval "$(oh-my-posh init zsh --config '~/.dom1nux.omp.toml')"
 
 # ── Functions ─────────────────────────────────────────────────────────────────
 vi() {
@@ -90,7 +90,7 @@ vi() {
 }
 
 # ── Fastfetch ─────────────────────────────────────────────────────────────────
-fastfetch --logo small --logo-padding-left 0 --logo-padding-right 4 --structure Title:Separator:OS:Host:Uptime:Shell --separator " "
+fastfetch --logo small --logo-padding-left 0 --logo-padding-right 4 --structure Title:Separator:OS:Host:Uptime:Shell:Localip --separator " "
 echo ""
 
 # ── Performance: compile zsh files ───────────────────────────────────────────
