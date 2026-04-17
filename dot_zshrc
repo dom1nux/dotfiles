@@ -75,6 +75,8 @@ zstyle ':fzf-tab:complete:cd:*'        fzf-preview 'eza --icons --color=always $
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'eza --icons --color=always $realpath'
 zstyle ':fzf-tab:complete:*:*'         fzf-preview 'bat --color=always --style=numbers $realpath 2>/dev/null || eza --icons --color=always $realpath'
 
+source <(COMPLETE=zsh jj)
+
 # ── Tools ─────────────────────────────────────────────────────────────────────
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
