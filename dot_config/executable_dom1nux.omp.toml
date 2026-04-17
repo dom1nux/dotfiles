@@ -1,0 +1,73 @@
+"$schema" = "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json"
+version = 4
+
+[[blocks]]
+type = "rprompt"
+overflow = "hidden"
+
+  [[blocks.segments]]
+  type = "git"
+  style = "plain"
+  foreground = "yellow"
+  template = "{{ if not (glob \".jj\") }}{{ .HEAD }}{{ if or (.Working.Changed) (.Staging.Changed) }}*{{ end }}{{ if gt .Behind 0 }}▼{{ end }}{{ if gt .Ahead 0 }}▲{{ end }}{{ end }}" 
+
+    [blocks.segments.properties]
+    branch_icon = ''
+    fetch_status = true
+
+  [[blocks.segments]]
+  type = "jujutsu"
+  style = "plain"
+  foreground = "magenta"
+  template = " {{ .ChangeID }}{{ if .Working.Changed }}*{{ end }}{{ if .ClosestBookmarks }} {{ .ClosestBookmarks }}{{ end }}"
+
+    [blocks.segments.properties]
+    fetch_status = true
+    ignore_working_copy = false
+    fetch_ahead_counter = true
+    ahead_icon = "▲"
+
+  [[blocks.segments]]
+  foreground = "blue"
+  style = "plain"
+  template = " {{ .CurrentDate | date .Format }}"
+  type = "time"
+
+    [blocks.segments.options]
+    time_format = "3:04 pm"
+  
+  [[blocks.segments]]
+  type = "os"
+  style = "plain"
+  foreground = "white"
+  template = " at {{ .Icon }}"
+  
+    [blocks.segments.properties]
+    windows = "win"
+    arch = "arch"
+    linux = "arch"
+
+[[blocks]]
+alignment = "left"
+type = "prompt"
+
+  [[blocks.segments]]
+  foreground_templates = [
+    "{{ if gt .Code 0 }}red{{ end }}",
+    "{{ if eq .Code 0 }}cyan{{ end }}"]
+  style = "plain"
+  template = "{{ .Path }} "
+  type = "path"
+
+    [blocks.segments.options]
+    folder_separator_icon = "/"
+    style = "unique"
+
+  [[blocks.segments]]
+  foreground_templates = [
+    "{{ if gt .Code 0 }}red{{ end }}",
+    "{{ if eq .Code 0 }}green{{ end }}",
+  ]
+  style = "plain"
+  template = "▶ "
+  type = "text"
