@@ -69,5 +69,5 @@ type = "prompt"
     "{{ if eq .Code 0 }}green{{ end }}",
   ]
   style = "plain"
-  template = "▶ "
+  template = "> "
   type = "text"
