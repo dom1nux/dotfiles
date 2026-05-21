@@ -3,7 +3,7 @@ export COLORTERM="truecolor"
 export EDITOR="nvim"
 export BAT_THEME="ansi"
 export PNPM_HOME="$HOME/.local/share/pnpm"
-export PATH="$HOME/.local/bin:$PNPM_HOME:$PATH"
+export PATH="$HOME/.local/bin:$PNPM_HOME/bin:$PATH"
 typeset -U PATH
 
 # fzf — use fd as backend, bat as previewer
