@@ -111,14 +111,6 @@ if [[ $- == *i* && -t 1 ]]; then
     unset _tty _ff_lock
 fi
 
-# ── Performance: compile zsh files ───────────────────────────────────────────
-if [[ ! -f ~/.zshrc.zwc ]] || [[ ~/.zshrc -nt ~/.zshrc.zwc ]]; then
-    zcompile ~/.zshrc
-fi
-if [[ -f ~/.zcompdump ]] && [[ (! -f ~/.zcompdump.zwc) || (~/.zcompdump -nt ~/.zcompdump.zwc) ]]; then
-    zcompile ~/.zcompdump
-fi
-
 # ── mise ──────────────────────────────────────────────────────────────────────
 eval "$(mise activate zsh)"
 
@@ -129,3 +121,11 @@ PATH="$(
   printf '%s' "$PATH" | tr ':' '\n' | rg --no-heading --color=never '^/mnt/' | tr '\n' ':'
 )"
 typeset -U PATH
+
+# ── Performance: compile zsh files ───────────────────────────────────────────
+if [[ ! -f ~/.zshrc.zwc ]] || [[ ~/.zshrc -nt ~/.zshrc.zwc ]]; then
+    zcompile ~/.zshrc
+fi
+if [[ -f ~/.zcompdump ]] && [[ (! -f ~/.zcompdump.zwc) || (~/.zcompdump -nt ~/.zcompdump.zwc) ]]; then
+    zcompile ~/.zcompdump
+fi
