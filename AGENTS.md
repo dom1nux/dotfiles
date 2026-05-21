@@ -23,7 +23,7 @@ Plain files (no `.tmpl`) are copied as-is. Prefer plain files unless templating 
 | Source | Target | Purpose |
 |---|---|---|
 | `dot_zshrc` | `~/.zshrc` | Zsh configuration — aliases, plugins, tool init |
-| `dot_config/starship.toml` | `~/.config/starship.toml` | Starship prompt configuration |
+| `dot_config/dom1nux.omp.toml` | `~/.config/dom1nux.omp.toml` | Oh My Posh prompt configuration |
 | `dot_gitconfig` | `~/.gitconfig` | Git configuration |
 
 ## Commit convention
@@ -53,21 +53,23 @@ chore: init
 
 1. Env vars and PATH exports — safe for non-interactive shells
 2. Aliases — safe for non-interactive shells
-3. Interactive guard: `[[ $- != *i* ]] && return`
-4. History configuration
-5. Keybindings
-6. Zinit bootstrap + plugins
-7. Completion setup (`compinit` + `zstyle`)
-8. Tool init (`fzf`, `zoxide`, `starship`)
-9. Functions
-10. Fastfetch
-11. `zcompile` performance block
+3. History configuration — guarded with `if [[ $- == *i* ]]; then`
+4. Keybindings — guarded
+5. Zinit bootstrap + plugins — guarded
+6. Completion setup (`compinit` + `zstyle`) — guarded
+7. Tool init (`fzf`, `zoxide`, `oh-my-posh`, `jj`) — guarded, with `(( $+commands[tool] ))` checks
+8. Functions
+9. Fastfetch — guarded with `[[ -t 1 ]]` + per-tty lock file
+10. `mise activate zsh` — not guarded
+11. PATH reordering (`/mnt/` paths to end, dedup) — not guarded
+12. `zcompile` performance block — last, not guarded (safe for non-interactive)
 
 **Rules:**
-- Never place interactive-only code above the `[[ $- != *i* ]] && return` guard
+- Env vars and PATH exports must be at the top — safe for non-interactive shells
+- Each interactive section uses its own `if [[ $- == *i* ]]; then` guard block
 - No hostname branching or machine-specific conditionals — single unified config
 - JIT philosophy: only add aliases and config for tools actively in use
-- `starship init zsh` must come after `fzf --zsh` and `zoxide init`
+- `oh-my-posh init zsh` must come after `fzf --zsh` and `zoxide init`
 - `zsh-syntax-highlighting` must be the last sourced plugin (zinit handles this)
 - The `zcompile` block must remain last
 
@@ -75,7 +77,7 @@ chore: init
 
 | Role | Tool | Notes |
 |---|---|---|
-| Prompt | starship | Not OMP — OMP causes issues with some tools |
+| Prompt | oh-my-posh | Config at `~/.config/dom1nux.omp.toml` |
 | Plugin manager | zinit | Turbo mode, auto-bootstraps on first launch |
 | Fuzzy finder | fzf | Backend: `fd`, previewer: `bat` |
 | Smart cd | zoxide | Initialized with `--cmd cd` (transparent replacement) |
@@ -86,6 +88,9 @@ chore: init
 | Editor | nvim | Aliased as `vi`; `vi()` function opens `nvim .` with no args |
 | Git TUI | lazygit | Aliased as `lg` |
 | Dotfiles manager | chezmoi | Aliased as `cz`; `cza` for apply |
+| Runtime manager | mise | Activated with `mise activate zsh` |
+| VCS (alternative) | jj (Jujutsu) | Completion loaded with `(( $+commands[jj] ))` check |
+| JS package manager | pnpm | `PNPM_HOME` set to `~/.local/share/pnpm` |
 
 ## Starship prompt style
 
@@ -107,7 +112,6 @@ Terminal colorscheme: **Catppuccin Mocha**.
 
 - **Transient prompt in zsh** — conflicts with `fzf-tab` and `zsh-autosuggestions`, causes visual glitches
 - **Hostname/machine branching** — the old config used `$isMizuki`/`$isMizuho` conditionals; this pattern is deprecated
-- **OMP (oh-my-posh)** — replaced by starship due to compatibility issues with VSCode Copilot and other tools
 - **Hardcoded hex colors** in starship where an ANSI named color is semantically equivalent
 - **Pre-populating aliases** for tools not yet actively used — add aliases JIT when the tool becomes part of the workflow
 - **Sourcing files at runtime** — inline config directly in `dot_zshrc` instead of splitting into separate sourced files
