@@ -1,5 +1,6 @@
 "$schema" = "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json"
 version = 4
+console_title_template = "{{.Folder}}{{if .Root}} as root{{end}} in {{.Shell}}"
 
 [[blocks]]
 type = "rprompt"
@@ -9,11 +10,12 @@ overflow = "hidden"
   type = "git"
   style = "plain"
   foreground = "yellow"
-  template = "{{ if not (glob \".jj\") }}{{ .HEAD }}{{ if or (.Working.Changed) (.Staging.Changed) }}*{{ end }}{{ if gt .Behind 0 }}▼{{ end }}{{ if gt .Ahead 0 }}▲{{ end }}{{ end }}" 
+  template = "{{ .HEAD }}{{ if or (.Working.Changed) (.Staging.Changed) }}*{{ end }}{{ if gt .Behind 0 }}▼{{ end }}{{ if gt .Ahead 0 }}▲{{ end }}" 
 
     [blocks.segments.properties]
     branch_icon = ''
     fetch_status = true
+    disable_with_jj = true
 
   [[blocks.segments]]
   type = "jujutsu"
@@ -34,19 +36,19 @@ overflow = "hidden"
   type = "time"
 
     [blocks.segments.options]
-    time_format = "3:04 pm"
+    time_format = "15:04"
   
   [[blocks.segments]]
   type = "os"
   style = "plain"
   foreground = "white"
-  template = " at {{ .Icon }}"
+  template = " @{{ .Icon }}"
   
     [blocks.segments.properties]
     windows = "win"
-    arch = "arch"
+    archlinux = "arch"
     linux = "arch"
-
+    
 [[blocks]]
 alignment = "left"
 type = "prompt"
@@ -69,5 +71,5 @@ type = "prompt"
     "{{ if eq .Code 0 }}green{{ end }}",
   ]
   style = "plain"
-  template = "> "
+  template = "▶ "
   type = "text"
