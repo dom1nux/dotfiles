@@ -87,7 +87,7 @@ if [[ $- == *i* ]]; then
     (( $+commands[jj] ))         && source <(COMPLETE=zsh jj)
     (( $+commands[fzf] ))        && eval "$(fzf --zsh)"
     (( $+commands[zoxide] ))     && eval "$(zoxide init --cmd cd zsh)"
-    (( $+commands[oh-my-posh] )) && eval "$(oh-my-posh init zsh --config '~/.config/dom1nux.omp.toml')"
+    (( $+commands[oh-my-posh] )) && eval "$(oh-my-posh init zsh --config '~/.config/dom1nux.omp.yaml')"
 fi
 
 # ── Functions ─────────────────────────────────────────────────────────────────
